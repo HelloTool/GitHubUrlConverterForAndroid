@@ -1,6 +1,6 @@
 # GitHub Link Converter
 
-![ICON](icon.png)
+![ICON](./app/src/main/res/drawable/ic_launcher.png)
 
 Convert GitHub Links, High Speed Download.
 

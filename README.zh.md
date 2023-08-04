@@ -1,6 +1,6 @@
 # GitHub 链接转换器
 
-![ICON](icon.png)
+![ICON](./app/src/main/res/drawable/ic_launcher.png)
 
 转换 GitHub 链接，高速下载。
 
