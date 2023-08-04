@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.gitee.jesse205.github.urlconverter">
+
+    <application
+        android:name="com.androlua.LuaApplication"
+        android:resizeableActivity="true"
+        android:supportsPictureInPicture="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="4"/>
+
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:name="com.androlua.Main"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.SEND" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="text/plain" />
+			</intent-filter>
+			<intent-filter android:autoVerify="true">
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:host="github.com" />
+				<data android:host="raw.githubusercontent.com" />
+				<data android:scheme="http"/>
+				<data android:scheme="https"/>
+			</intent-filter>
+		</activity>
+
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:exported="true"
+            android:name="com.androlua.LuaActivity"/>
+
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:documentLaunchMode="intoExisting"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:excludeFromRecents="false"
+            android:exported="false"
+            android:name="com.androlua.LuaActivityX"/>
+
+        <activity
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|navigation|screenLayout|fontScale|smallestScreenSize|keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:exported="true"
+            android:name="com.androlua.Welcome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+
+    </application>
+
+</manifest>
