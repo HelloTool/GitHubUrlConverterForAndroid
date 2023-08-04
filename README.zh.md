@@ -7,6 +7,8 @@
 ## 安装教程
 
 1. 进入 [Gitee 发行版](https://gitee.com/Jesse205/GitHubUrlConverter/releases/latest)下载预编译的安装包，文件名通常以 `.apk` 结尾
+  * 也可以进入 [123 云盘](https://www.123pan.com/s/G7a9-4xtk.html)下载，但是更新可能会不及时。
+  * 也可以进入[百度网盘](https://pan.baidu.com/s/1DUh2ecgyxTRNoJ5bm30fdg?pwd=qqi7)（密码：qqi7）下载，但是更新可能会不及时。
 2. 按照[《刷机指南 - 安装软件》](https://jesse205.github.io/FlashAndroidDevicesGuidelines/normal/installApk/)的教程安装本工具软件
 
 ## 使用说明

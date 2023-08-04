@@ -7,6 +7,8 @@ Convert GitHub Links, High Speed Download.
 ## Installation Tutorial
 
 1. Go to [Gitee Distribution](https://gitee.com/Jesse205/GitHubUrlConverter/releases/latest) and download the pre-compiled installer, the file name usually ends with `.apk`.
+  * You can also go to [123 pan](https://www.123pan.com/s/G7a9-4xtk.html) to download, but the update may not be timely.
+  * You can also go to [Baidu Netdisk](https://pan.baidu.com/s/1DUh2ecgyxTRNoJ5bm30fdg?pwd=qqi7) (password: qqi7) to download, but the update may not be timely.
 2. Follow the tutorials in [Flashing Guide - Installing Software (Chinese)](https://jesse205.github.io/FlashAndroidDevicesGuidelines/normal/installApk/) to install the utility.
 
 ## Instructions for use
