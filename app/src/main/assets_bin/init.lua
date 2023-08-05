@@ -8,6 +8,4 @@ description=[[
 收集的网站版权仍归网站所有者所有。]]
 debugmode=true
 user_permission={
-  "INTERNET",
-  "WRITE_EXTERNAL_STORAGE"
 }

@@ -33,6 +33,14 @@ require "helper"
 KEY_SELECTED_GITHUB="UrlConverter.selected.github"
 KEY_SELECTED_FORMATTER="UrlConverter.selected.%s"
 
+KEY_PLATFORM_SELECTED_FORMAT="UrlConverter.platform.selected.%s"
+
+KEY_TERM_USER="term.user"
+KEY_TERM_PRIVACY="term.privacy"
+
+VERSION_TERM_USER="v1.1"
+VERSION_TERM_PRIVACY="v1.2"
+
 FILE_CONFIGS_DIR=activity.getExternalFilesDir("config")
 PATH_CONFIGS_DIR=FILE_CONFIGS_DIR.getPath()
 
@@ -530,3 +538,23 @@ radioGroup.post({
 })
 ]]
 parseIntent(activity.getIntent())
+
+local agreedUserTermVersion=activity.getSharedData(KEY_TERM_USER)
+local agreedPrivacyTermVersion=activity.getSharedData(KEY_TERM_PRIVACY)
+if agreedUserTermVersion~=VERSION_TERM_USER
+  or agreedPrivacyTermVersion~=VERSION_TERM_PRIVACY then
+  local wecomeHtml=readFile(luajava.luadir.."/welcome.html")
+  AlertDialog.Builder(this)
+  .setTitle("欢迎使用")
+  .setMessage(Html.fromHtml(wecomeHtml))
+  .setCancelable(false)
+  .setPositiveButton("同意",function()
+    activity.setSharedData(KEY_TERM_USER,VERSION_TERM_USER)
+    activity.setSharedData(KEY_TERM_PRIVACY,VERSION_TERM_PRIVACY)
+    toast("您已签署用户协议与隐私政策")
+  end)
+  .setNegativeButton("不同意",function()
+    activity.finish()
+  end)
+  .show()
+end
