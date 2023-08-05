@@ -38,7 +38,7 @@ KEY_PLATFORM_SELECTED_FORMAT="UrlConverter.platform.selected.%s"
 KEY_TERM_USER="term.user"
 KEY_TERM_PRIVACY="term.privacy"
 
-VERSION_TERM_USER="v1.1"
+VERSION_TERM_USER="v1.2"
 VERSION_TERM_PRIVACY="v1.2"
 
 FILE_CONFIGS_DIR=activity.getExternalFilesDir("config")
@@ -179,8 +179,17 @@ function showAboutDialog()
   .setIcon(R.drawable.ic_launcher)
   .setMessage("")
   .setPositiveButton(android.R.string.ok,nil)
+  .setNeutralButton("法律信息...",nil)
+  .setNegativeButton("开源仓库",nil)
   .show()
+  local termUrlList={"https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/user_v1.2.md",
+    "https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/privacy_v1.2.md",
+    "https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/license_v1.2.md",
+    "https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/sharing_v1.2.md"}
+
   local messageView=dialog.findViewById(android.R.id.message)
+  local neutralButton=dialog.getButton(Dialog.BUTTON_NEUTRAL)
+  local negativeButton=dialog.getButton(Dialog.BUTTON_NEGATIVE)
   messageView.setAutoLinkMask(Linkify.WEB_URLS|Linkify.EMAIL_ADDRESSES)
   messageView.setTextIsSelectable(true)
   messageView.setMovementMethod(RTEditorMovementMethod.getInstance())
@@ -192,7 +201,31 @@ UrlConverter 版本：v]]..UrlConverter._VERSION..(" (%s)"):format(UrlConverter.
 反馈邮箱: jesse205@qq.com
 
 ]]..description)
+  --设置为文本后需要取消自动连接，否则会点击重复
+  messageView.setAutoLinkMask(0)
+
   messageView.requestFocus()
+  local termPopupMenu=PopupMenu(activity,neutralButton)
+  local menu=termPopupMenu.getMenu()
+  menu.add(0,1,0,"用户协议")
+  menu.add(0,2,0,"隐私政策")
+  menu.add(0,3,0,"开源许可")
+  menu.add(0,4,0,"第三方信息共享")
+  termPopupMenu.setOnMenuItemClickListener({
+    onMenuItemClick=function(item)
+      local itemId=item.getItemId()
+      if itemId>=1 and itemId<=4 and termUrlList[itemId] then
+        openInBrowser(termUrlList[itemId])
+      end
+    end
+  })
+  neutralButton.onClick=function(view)
+    termPopupMenu.show()
+  end
+  neutralButton.setOnTouchListener(termPopupMenu.getDragToOpenListener())
+  negativeButton.onClick=function(view)
+    openInBrowser("https://gitee.com/Jesse205/GitHubUrlConverter")
+  end
 end
 
 --检测是否需要重新加载
@@ -293,9 +326,9 @@ function changeCategory(categoryKey)
 end
 
 ---切换分类和单选框
-function changeCategoryRadio(key,smooth)
+function changeCategoryRadio(key,smooth,focus)
   --判断当前转换器是否相同，如果相同则不需要执行下面的操作了
-  if not nowPlatform or nowConverterConfigs and nowConverterConfigs.key==key then
+  if not focus and (not nowPlatform or nowConverterConfigs and nowConverterConfigs.key==key) then
     return
   end
   local radioButton
@@ -361,10 +394,9 @@ function changePlatform(platformKey)
   --默认勾选
   radioGroup.post({
     run=function()
-      changeCategoryRadio(selectedConverterKey,false)
+      changeCategoryRadio(selectedConverterKey,false,true)
     end
   })
-
 end
 
 --平滑滚动到视图
@@ -468,7 +500,7 @@ moreCategoriesButton.onClick=function()
   local dialog=AlertDialog.Builder(this)
   .setTitle("转换器分类")
   .setSingleChoiceItems(items,position,function(dialog,position)
-    changeCategoryRadio(keys[position+1])
+    changeCategoryRadio(keys[position+1],true)
   end)
   .setPositiveButton(android.R.string.ok,nil)
   .show()
@@ -544,17 +576,22 @@ local agreedPrivacyTermVersion=activity.getSharedData(KEY_TERM_PRIVACY)
 if agreedUserTermVersion~=VERSION_TERM_USER
   or agreedPrivacyTermVersion~=VERSION_TERM_PRIVACY then
   local wecomeHtml=readFile(luajava.luadir.."/welcome.html")
-  AlertDialog.Builder(this)
+  local dialog=AlertDialog.Builder(this)
   .setTitle("欢迎使用")
   .setMessage(Html.fromHtml(wecomeHtml))
   .setCancelable(false)
   .setPositiveButton("同意",function()
     activity.setSharedData(KEY_TERM_USER,VERSION_TERM_USER)
     activity.setSharedData(KEY_TERM_PRIVACY,VERSION_TERM_PRIVACY)
-    toast("您已签署用户协议与隐私政策")
+    toast("您已签署用户协议与隐私政策，欢迎使用！")
   end)
   .setNegativeButton("不同意",function()
     activity.finish()
   end)
   .show()
+  local messageView=dialog.findViewById(android.R.id.message)
+  messageView.setTextIsSelectable(true)
+  messageView.setMovementMethod(RTEditorMovementMethod.getInstance())
+  messageView.requestFocus()
+
 end
