@@ -1,19 +1,7 @@
 ---转换器配置
 ---返回一个字典，键：转换器key，唯一标识
 ---            值：转换器配置
-
----@class ConverterSupportConfig
----@field domains string[]|nil 域名列表，仅用户输入的域名在列表内则通过。
----@field check string[]|nil 正则列表，仅用户符合其中一项则通过。
-
----@class ConverterConfig
----@field conversionType string 转换类型，目前拥有 "domain" 和 "formatUrl"。"domain" 为替换域名，"formatUrl" 为格式化内容。
----@field domain table<string,string>|string|nil 域名替换，键为被替换的域名 值为替后的域名。仅 conversionType 为"domain" 时生效。
----@field url string 要格式化的字符串，仅拥有一个 %s，且仅在 conversionType 为 "formatUrl" 生效。
----@field needEncodeUrl boolean 格式化 url 时是否需要进行 url 编码，且仅在 conversionType 为 "formatUrl" 生效。
----@field support ConverterSupportConfig 输入内容校验配置
----@field message string|nil 展示的信息，内容为 html 代码
----@field supportUrl string|nil 支持作者的 url
+---详情见 UrlConverter
 
 ---@type table<string,ConverterConfig>
 return {
@@ -308,4 +296,38 @@ release、archive使用cf加速，文件会跳转至JsDelivr
 <li>分支文件：https://github.com/hunshcn/project/blob/master/filename</li>
 </ul>]],
   },
+  jsdelivr={
+    conversionType="function",
+    convertFunction=function(self,url)
+      local organization,repository,path=url:match("https?://github.com/([^/]+)/([^/]+)/(.+)")
+      return ("https://cdn.jsdelivr.net/gh/%s/%s@%s"):format(organization,repository,path)
+    end,
+    support={
+      domains={"github.com"},
+      check={
+        "https?://github.com/[^/]+/[^/]+/.+",
+      },
+    },
+    message=[[
+<strong>注</strong>：此渠道可能无法使用。如遇无法使用，请尝试更换其他转换器。
+<h1>从 GitHub 迁移到 jsDelivr</h1>
+jsDelivr 是一款免费、快速、可靠的 npm 和 GitHub 开源 CDN。大多数 GitHub 链接都可以很容易地转换为 jsDelivr 链接。
+<p>
+<strong>jsDelivr 是一个免费的 CDN（内容交付网络）</strong>
+</p>
+<p>
+<strong>对于开放源文件</strong>
+</p>
+<p>
+通过使用 jsDelivr CDN URL，您可以在全球范围内获得更好的性能，这要归功于我们的多 CDN 基础架构。
+</p>
+<p>
+我们还永久缓存所有文件，以确保可靠性，即使您的文件从 Github 中被删除，它们也将继续在 jsDelivr 上工作，而不会破坏任何使用它们的站点。
+</p>
+<p>
+jsDelivr CDN 专为生产使用而设计，具有多层故障切换，以确保最佳的正常运行时间。
+</p>
+]],
+    supportUrl="https://www.jsdelivr.com/sponsors",
+  }
 }

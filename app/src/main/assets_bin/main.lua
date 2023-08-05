@@ -85,9 +85,10 @@ local customConverterConfigsMD5
 
 function onCreateOptionsMenu(menu)
   menu.add(0,0,0,"gh-proxy 开源仓库")
-  local settingsMneu=menu.addSubMenu("设置")
+  local settingsMneu=menu.addSubMenu("设置...")
   settingsMneu.add(0,2,0,"编辑平台配置")
   settingsMneu.add(0,3,0,"编辑转换器配置")
+  menu.add(0,4,0,"使用文档")
   menu.add(0,1,0,"关于")
 end
 
@@ -101,6 +102,8 @@ function onOptionsItemSelected(item)
     openInOtherApp(activity.getUriForFile(FILE_PLATFORM_CONFIGS))
    elseif id==3 then
     openInOtherApp(activity.getUriForFile(FILE_CONVERTER_CONFIGS))
+   elseif id==4 then
+    openInBrowser("https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md")
   end
 end
 
