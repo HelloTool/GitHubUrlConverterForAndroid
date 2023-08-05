@@ -24,6 +24,8 @@ Convert GitHub Links, High Speed Download.
 
 > The text in the input box will automatically match the link, so you don't need to worry about impurities outside the link.
 
+For more information, please read the [Document](./docs/README.md) (Chinese).
+
 ## Contribute
 
 1. Fork this repository
