@@ -21,7 +21,8 @@ return {
         {"GitHub Proxy (Mintimate)","mintimate"},
         {"GitHub Proxy (Lzzzmai)","lzzzmai"},
         {"GitHub 文件加速 (演示)","gh99988866"},
-      }
+      },
+      groups={"github"},
     }
   }
 }

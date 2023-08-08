@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="@android:style/Theme.DeviceDefault.Settings">
+    </style>
+    <style name="AppTheme.Translucent" parent="@style/AppTheme">
+		<item name="android:colorBackgroundCacheHint">@null</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowAnimationStyle">@null</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		
     </style>
 </resources>

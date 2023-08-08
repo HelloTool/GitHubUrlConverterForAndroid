@@ -4,25 +4,16 @@ import "android.os.*"
 import "android.widget.*"
 import "android.view.*"
 import "android.text.Html"
-import "android.content.Context"
-import "android.content.Intent"
-import "android.content.ClipData"
-import "android.net.Uri"
 import "android.text.util.Linkify"
-import "io.gitee.jesse205.github.urlconverter.BuildConfig"
-import "io.gitee.jesse205.github.urlconverter.R"
 import "android.webkit.WebView"
-import "java.util.Base64"
 import "com.onegravity.rteditor.RTEditorMovementMethod"
 import "android.text.util.Linkify"
-import "java.io.File"
 import "res"
 import "helper.DialogHelper"
 import "util.UrlConverter"
 import "init"
 import "configs.toolConfigs"
 import "configs.converterConfigs"
-import "json"
 
 require "helper"
 
@@ -35,23 +26,15 @@ KEY_SELECTED_FORMATTER="UrlConverter.selected.%s"
 
 KEY_PLATFORM_SELECTED_FORMAT="UrlConverter.platform.selected.%s"
 
+KEY_DIRECT_CONVERT_MACHINES="UrlConverter.directConvert.machines"
+
+KEY_DIRECT_CONVERT_MACHINE_FORMATTER="UrlConverter.directConvert.machine.%s"
+
 KEY_TERM_USER="term.user"
 KEY_TERM_PRIVACY="term.privacy"
 
 VERSION_TERM_USER="v1.2"
 VERSION_TERM_PRIVACY="v1.2"
-
-FILE_CONFIGS_DIR=activity.getExternalFilesDir("config")
-PATH_CONFIGS_DIR=FILE_CONFIGS_DIR.getPath()
-
-PATH_PLATFORM_CONFIGS_DEFAULT=luajava.luadir.."/configs/defaultPlatforms.json"
-PATH_PLATFORM_CONFIGS=PATH_CONFIGS_DIR.."/platforms.json"
-FILE_PLATFORM_CONFIGS=File(PATH_PLATFORM_CONFIGS)
-
-PATH_CONVERTER_CONFIGS_DEFAULT=luajava.luadir.."/configs/defaultConverter.json"
-PATH_CONVERTER_CONFIGS=PATH_CONFIGS_DIR.."/defaultConverter.json"
-FILE_CONVERTER_CONFIGS=File(PATH_CONVERTER_CONFIGS)
-
 
 if not activity.getActionBar() then
   activity.setTheme(android.R.style.Theme_Material_Settings)
@@ -82,14 +65,21 @@ local nowConverterConfigs
 local customPlatformConfigsMD5
 local customConverterConfigsMD5
 
+local platformsGroupName="github"
+
+local isMenuLoaded=false
 
 function onCreateOptionsMenu(menu)
   menu.add(0,0,0,"gh-proxy 开源仓库")
-  local settingsMneu=menu.addSubMenu("设置...")
-  settingsMneu.add(0,2,0,"编辑平台配置")
-  settingsMneu.add(0,3,0,"编辑转换器配置")
+  local settingsMenu=menu.addSubMenu("设置...")
+  settingsMenu.add(0,2,0,"编辑平台配置")
+  settingsMenu.add(0,3,0,"编辑转换器配置")
+  directConvertMenu=settingsMenu.add(0,5,0,"直接转换")
+  .setCheckable(true)
   menu.add(0,4,0,"使用文档")
   menu.add(0,1,0,"关于")
+  isMenuLoaded=true
+  refreshMenu()
 end
 
 function onOptionsItemSelected(item)
@@ -104,75 +94,36 @@ function onOptionsItemSelected(item)
     openInOtherApp(activity.getUriForFile(FILE_CONVERTER_CONFIGS))
    elseif id==4 then
     openInBrowser("https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md")
+   elseif id==5 then
+    if nowConverterConfigs then
+      if item.isChecked() then
+        item.setChecked(false)
+        activity.setSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key),nil)
+       else
+        local dialog=AlertDialog.Builder(this)
+        .setTitle("直接转换")
+        .setMessage("勾选该平台的该转换器后，当您在外部分享链接到本 APP 内时，本 APP 会自动使用本转换器转换并使用浏览器打开此链接。")
+        .setPositiveButton(android.R.string.ok,function()
+          item.setChecked(true)
+          activity.setSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key),nowConverterConfigs.key)
+        end)
+        .setNegativeButton(android.R.string.no,nil)
+        .show()
+      end
+    end
   end
 end
 
 function onNewIntent(newIntent)
-  parseIntent(newIntent)
+  parseIntent(newIntent,true)
 end
 
----加载自定义平台配置
-function loadPlatformCustomConfigs()
-  if FILE_PLATFORM_CONFIGS.isDirectory() then
-    LuaUtil.rmDir(FILE_PLATFORM_CONFIGS)
-  end
-  FILE_CONFIGS_DIR.mkdirs()
-
-  local customPlatformConfigsJson,errMsg
-  if not FILE_PLATFORM_CONFIGS.isFile() then
-    LuaUtil.copyFile(PATH_PLATFORM_CONFIGS_DEFAULT,PATH_PLATFORM_CONFIGS)
-  end
-  customPlatformConfigsJson,errMsg=readFile(PATH_PLATFORM_CONFIGS)
-  if errMsg then
-    toast(errMsg)
+function refreshMenu()
+  if not isMenuLoaded then
     return
   end
-  customPlatformConfigsMD5=LuaUtil.getMD5(customPlatformConfigsJson)
-
-  local success,customPlatformConfigs=pcall(json.decode,customPlatformConfigsJson)
-  if success then
-    xpcall(mergeTables,function(errMsg)
-      toast("平台配置文件合并出错："..errMsg)
-      end,platformConfigs,function(oldValue,newValue,path)
-      if path=="root" then
-        return oldValue.key==newValue.key
-       elseif path:match("^root/%d/categories$")
-        return oldValue[2]==newValue[2]
-       elseif path:match("^root/%d/categories/%d$") then
-        return oldValue==newValue
-      end
-    end,"root",customPlatformConfigs)
-   else
-    toast("平台配置文件出错："..customPlatformConfigs)
-  end
-end
-
----加载转换器自定义配置
-function loadConverterCustomConfigs()
-  if FILE_CONVERTER_CONFIGS.isDirectory() then
-    LuaUtil.rmDir(FILE_CONVERTER_CONFIGS)
-  end
-  FILE_CONFIGS_DIR.mkdirs()
-
-  local customConverterConfigsJson,errMsg
-  if not FILE_CONVERTER_CONFIGS.isFile() then
-    LuaUtil.copyFile(PATH_CONVERTER_CONFIGS_DEFAULT,PATH_CONVERTER_CONFIGS)
-  end
-  customConverterConfigsJson,errMsg=readFile(PATH_CONVERTER_CONFIGS)
-  if errMsg then
-    toast(errMsg)
-    return
-  end
-  customConverterConfigsMD5=LuaUtil.getMD5(customConverterConfigsJson)
-
-  local success,customConverterConfig=pcall(json.decode,customConverterConfigsJson)
-  if success then
-    xpcall(mergeTables,function(errMsg)
-      toast("转换器配置文件合并出错："..errMsg)
-    end,converterConfigs,nil,"root",customConverterConfig)
-   else
-    toast("转换器配置文件出错："..customConverterConfig)
-  end
+  directConvertMenu.setEnabled(not not(nowConverterConfigs))
+  directConvertMenu.setChecked(not not(nowConverterConfigs and activity.getSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key))==nowConverterConfigs.key))
 end
 
 ---显示关于对话框
@@ -253,17 +204,13 @@ end
 ---获取转换后的链接
 ---@return url string 已转换的链接
 function getConvertedUrl()
-  local text=inputEdit.text
-  local originUrl=text:match("(https?://[%w%p]+)")
-  assert(originUrl,"未找到链接")
   assert(nowConverterConfigs,"转换器配置为空")
-  local url=UrlConverter.convert(originUrl,nowConverterConfigs)
-  return url
+  return convertUrl(inputEdit.text,nowConverterConfigs)
 end
 
 ---解析 Intent
 ---@param intent Intent 要解析的 Intent
-function parseIntent(intent)
+function parseIntent(intent,isNewIntent)
   local text
   if intent.getData() then
     local data=intent.getData()
@@ -277,9 +224,11 @@ function parseIntent(intent)
    elseif intent.getStringExtra(Intent.EXTRA_TEXT) then
     text=intent.getStringExtra(Intent.EXTRA_TEXT)
   end
-  if text then
-    inputEdit.setText(text)
+  if not text then
+    return
   end
+
+  inputEdit.setText(text)
 end
 
 ---开始转换url
@@ -293,6 +242,7 @@ function startConvertUrl(callback)
     inputEdit.setError(message:match(": (.+)") or message)
     inputEdit.requestFocus()
   end
+  return state,message
 end
 
 
@@ -352,6 +302,7 @@ function changeCategoryRadio(key,smooth,focus)
   end
   --TODO: 使用 LuaDB 存储数据
   activity.setSharedData(KEY_SELECTED_FORMATTER:format(nowPlatform.key),key)
+  refreshMenu()
 end
 
 ---切换平台
@@ -379,6 +330,7 @@ function changePlatform(platformKey)
     local layoutParams=radioButton.getLayoutParams()
     layoutParams.height=ViewGroup.LayoutParams.MATCH_PARENT
     radioButton.setLayoutParams(layoutParams)
+
     --优先选择受支持的转换器
     if isAvailable then
       if converterKey==selectedConverterKey then
@@ -400,6 +352,7 @@ function changePlatform(platformKey)
       changeCategoryRadio(selectedConverterKey,false,true)
     end
   })
+  activity.setSharedData(KEY_PLATFORM_SELECTED_FORMAT:format(platformsGroupName),platformKey)
 end
 
 --平滑滚动到视图
@@ -419,7 +372,6 @@ end
 function onRadioButtonClick(view)
   changeCategoryRadio(view.tag,true)
 end
-
 
 function onResume()
   if needRecreate() then
@@ -447,9 +399,7 @@ startButton.onClick=function()
 end
 
 startAndOpenButton.onClick=function()
-  startConvertUrl(function(newUrl)
-    openInBrowser(newUrl)
-  end)
+  startConvertUrl(openInBrowser)
 end
 
 startAndShareButton.onClick=function()
@@ -517,24 +467,25 @@ function fixConverterConfigs(converterConfigs)
   end
 end
 
-loadConverterCustomConfigs()
-loadPlatformCustomConfigs()
+customConverterConfigsMD5=loadConverterCustomConfigs(converterConfigs)
+customPlatformConfigsMD5=loadPlatformCustomConfigs(platformConfigs)
 
 fixConverterConfigs(converterConfigs)
 
 --建立platformKey2ConfigMap映射
-for i=1,#toolConfigs.platforms do
-  local platformConfig=toolConfigs.platforms[i]
+for i=1,#platformConfigs do
+  local platformConfig=platformConfigs[i]
   platformKey2ConfigMap[platformConfig.key]=platformConfig
 end
 
 --nowPlatform=toolConfigs.platforms[1]
 
 
-if #toolConfigs.platforms>1 then
+if #platformConfigs>1 then
   actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS)
-  for i=1,#toolConfigs.platforms do
-    local platformConfig=toolConfigs.platforms[i]
+  local selectedPlatformKey=activity.getSharedData(KEY_PLATFORM_SELECTED_FORMAT:format(platformsGroupName))
+  for i=1,#platformConfigs do
+    local platformConfig=platformConfigs[i]
     local tab = actionBar.newTab()
     .setText(platformConfig.name)
     .setTabListener(ActionBar.TabListener({
@@ -543,36 +494,16 @@ if #toolConfigs.platforms>1 then
       end
     }))
     actionBar.addTab(tab)
+    if platformConfig.key==selectedPlatformKey then
+      tab.select()
+    end
   end
  else
-  changePlatform(toolConfigs.platforms[1].key)
+  changePlatform(platformConfigs[1].key)
 end
 
 
---TODO: 封装到切换平台函数
---[[
-for index,category in ipairs(nowPlatform.categories) do
-  local radioButton=RadioButton(activity)
-  radioGroup.addView(radioButton)
-  local name,converterKey=category[1],category[2]
-  radioButton.setText(name)
-  radioButton.setTag(converterKey)
-  radioButton.setOnClickListener(onRadioButtonClickListener)
-  radioButton.setEnabled(not not (converterKey and converterConfigs[converterKey]))
-  local layoutParams=radioButton.getLayoutParams()
-  layoutParams.height=ViewGroup.LayoutParams.MATCH_PARENT
-  radioButton.setLayoutParams(layoutParams)
-end
-
---默认勾选
-radioGroup.post({
-  run=function()
-    local selectedGithubKey=activity.getSharedData(KEY_SELECTED_GITHUB)
-    changeCategoryRadio(selectedGithubKey)
-  end
-})
-]]
-parseIntent(activity.getIntent())
+parseIntent(activity.getIntent(),false)
 
 local agreedUserTermVersion=activity.getSharedData(KEY_TERM_USER)
 local agreedPrivacyTermVersion=activity.getSharedData(KEY_TERM_PRIVACY)
@@ -596,5 +527,5 @@ if agreedUserTermVersion~=VERSION_TERM_USER
   messageView.setTextIsSelectable(true)
   messageView.setMovementMethod(RTEditorMovementMethod.getInstance())
   messageView.requestFocus()
-
 end
+

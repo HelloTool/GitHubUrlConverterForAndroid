@@ -19,7 +19,7 @@ import "android.net.Uri"
 ---@field _VERSION_CODE string 版本号
 local UrlConverter={}
 UrlConverter._VERSION="1.2"
-UrlConverter._VERSION_CODE=1199
+UrlConverter._VERSION_CODE=1299
 
 
 ---转换链接
