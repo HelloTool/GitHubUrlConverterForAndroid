@@ -9,6 +9,7 @@ import "android.webkit.WebView"
 import "com.onegravity.rteditor.RTEditorMovementMethod"
 import "android.text.util.Linkify"
 import "res"
+import "themeutil"
 import "helper.DialogHelper"
 import "util.UrlConverter"
 import "init"
@@ -36,9 +37,15 @@ KEY_TERM_PRIVACY="term.privacy"
 VERSION_TERM_USER="v1.2"
 VERSION_TERM_PRIVACY="v1.2"
 
-if not activity.getActionBar() then
-  activity.setTheme(android.R.style.Theme_Material_Settings)
+activity.setTheme(android.R.style.Theme)
+local enableEMUITheme=true
+if not enableEMUITheme then
+  themeutil.isEmuiSystem=false
+  androidhwext=nil
 end
+themeutil.applyTheme()
+
+elementMargin=themeutil.isEmuiSystem and "4dp" or nil
 
 activity.setContentView(loadlayout("layout"))
 actionBar=activity.getActionBar()
