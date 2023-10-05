@@ -8,8 +8,8 @@ android {
         applicationId "io.gitee.jesse205.github.urlconverter"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1399
-        versionName "1.3"
+        versionCode 1499
+        versionName "1.4"
     }
     buildTypes {
         release {
