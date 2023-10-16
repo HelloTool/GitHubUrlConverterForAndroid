@@ -4,7 +4,7 @@
 
 软件内内置了 GitHub 平台，您可以直接使用 GitHub 链接转换的功能。
 
-1. 选择 GitHub 平台。软件内默认只有 GitHub 平台，会不会显示标签栏，且默认选中该平台。
+1. 选择 GitHub 平台。（因为软件内默认只有 GitHub 平台，所以不会显示标签栏，也就默认选中的是该平台。）
 2. 将 GitHub 文件链接（比如发行版）填入输入框内。
    - 可以复制 GitHub 链接，然后粘贴进输入框。
    - 也可以直接从 GitHub APP 分享链接到此应用。搭配 F-Droid 应用商店使用效果更佳。
@@ -22,7 +22,7 @@
 软件内默认内置 GitHub 平台。如果您还需要转换其他平台的链接（如：GitLab），您可以添加自定义的平台。
 
 1. 下载文件编辑器，或者带有编辑功能的文件管理器。（如：[质感文件](https://github.com/zhanghai/MaterialFiles/releases/latest)、[MT 管理器](https://mt2.cn/)）。
-2. 进入软件，点击 `溢出菜单 > 设置... > 编辑平台配置` 。
+2. 进入软件，点击 `菜单 > 设置... > 编辑平台配置` 。
 3. 选择刚刚安装的文件管理或者编辑器，编辑文件内容。
 
 文件大致内容：
@@ -65,37 +65,41 @@
         ]
     }
     {
-        "name": "GitLab",
-        "key": "gitlab",
+        "name": "我的 GitLab",
+        "key": "my_gitlab",
         "categories": [
             [
-                "转换器1",
-                "coverter1"
+                "我的转换器1",
+                "my_coverter1"
             ],
             [
-                "转换器2",
-                "coverter2"
+                "我的转换器2",
+                "my_coverter2"
             ]
         ]
     }
 ]
 ```
 
-其中每个平台配置（PlatformConfig）：
+其中每个平台配置（`PlatformConfig`）：
 
-- `name` (string): 平台名称
-- `key` (string): 唯一标识符，用于区分不同的平台
-- `categories` (string[][]): 转换器分类列表
+- `name` (`string`): 平台名称
+- `key` (`string`): 唯一标识符，用于区分不同的平台
+- `categories` (`string[][]`): 转换器分类列表
   - `[1]`: 转换器名称，用于显示到 UI 中
   - `[2]`: 转换器标识符，用于寻找转换器
 
-注意：相同的平台会自动合并，相同的转换器分类也会自动合并。
-
-提示：您可能还需要自定义转换器才能自定义平台。
+> **Note**
+>
+> - 相同的平台会自动合并，相同的转换器分类也会自动合并。
+> - 您可能还需要自定义转换器才能自定义平台。
+> - 不支持 json5
 
 ## 自定义转换器
 
-软件内内置了与 GitHub 有关的转换器。如果您还需要转换其他平台的链接（如：GitHub proxy XXX），您可以添加自定义的转换器。
+软件内内置了与 GitHub 有关的转换器。
+
+如果您还需要转换到更多平台的链接（如：自建的 GitHub proxy），您可以添加自定义的转换器。
 
 1. 下载文件编辑器，或者带有编辑功能的文件管理器。（如：[质感文件](https://github.com/zhanghai/MaterialFiles/releases/latest)、[MT 管理器](https://mt2.cn/)）。
 2. 进入软件，点击 `溢出菜单 > 设置... > 编辑平台配置` 。
@@ -161,22 +165,28 @@
 }
 ```
 
-最外层是一个字典，键为转换器的标识，值为转换器配置。
+最外层是一个字典
+
+- 键（`string`）：转换器的标识，如果与已知转换器重复，则会合并内容。
+- 值（`ConverterConfig`）：转换器配置。
 
 您可以仿照上面的格式添加更多转换器。
 
-### 转换器配置 (ConverterConfig)
+> **Note**\
+> 不支持 json5
 
-- `conversionType` (string): 转换类型，目前拥有 "domain"、 "formatUrl" 和 "function"。"domain" 为替换域名，"formatUrl" 为格式化内容，"function"为执行函数。
-- `convertFunction` (func(ConverterConfig,string)): 转换类型
-- `domain` (table<string,string> | string | nil): 域名替换，键为被替换的域名 值为替后的域名。仅 conversionType 为"domain" 时生效。
-- url (string): 要格式化的字符串，仅拥有一个 %s，且仅在 conversionType 为 "formatUrl" 生效。
-- `needEncodeUrl` (boolean): 格式化 url 时是否需要进行 url 编码，且仅在 conversionType 为 "formatUrl" 生效。
-- `support` (ConverterSupportConfig): 输入内容[校验配置](#校验配置-convertersupportconfig)
-- `message` (string | nil): 展示的信息，内容为 html 代码
-- `supportUrl` (string | nil): 支持作者的 url
+### 转换器配置 (`ConverterConfig`)
 
-### 校验配置 (ConverterSupportConfig)
+- `conversionType` (`string`): 转换类型，目前拥有 `"domain"`、 `"formatUrl"` 和 `"function"`。`"domain"` 为替换域名，`"formatUrl"` 为格式化内容，`"function"` 为执行函数。
+- `convertFunction` (`func(ConverterConfig,string)`): 转换类型
+- `domain` `(table<string,string> | string | nil`): 域名替换，键为被替换的域名 值为替后的域名。仅 conversionType 为"domain" 时生效。
+- `url` (`string`): 要格式化的字符串，仅拥有一个 %s，且仅在 conversionType 为 "formatUrl" 生效。
+- `needEncodeUrl` (`boolean`): 格式化 url 时是否需要进行 url 编码，且仅在 conversionType 为 "formatUrl" 生效。
+- `support` (`ConverterSupportConfig`): 输入内容[校验配置](#校验配置-convertersupportconfig)
+- `message` (`string | nil`): 展示的信息，内容为 html 代码
+- `supportUrl` (`string | nil`): 支持作者的 url
 
-- `domains` (string[] | nil): 域名列表，仅用户输入的域名在列表内则通过。
-- `check` (string[] | nil): 正则列表，仅用户符合其中一项则通过。
+### 校验配置 (`ConverterSupportConfig`)
+
+- `domains` (`string[] | nil`): 域名列表，仅用户输入的域名在列表内则通过。
+- `check` (`string[] | nil`): 正则列表，仅用户符合其中一项则通过。
