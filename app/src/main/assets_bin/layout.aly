@@ -11,33 +11,30 @@
     padding="8dp";
     clipToPadding=false;
     {
+      TextView;
+      text="网页链接";
+      textSize="14sp";
+      layout_margin=elementMargin or "4dp";
+      layout_marginBottom=0;
+      textColor=android.res.color.attr.colorAccent;
+    };
+    {
       LinearLayout;
       layout_height="wrap";
       layout_width="fill";
       gravity="center";
+      layout_margin=elementMargin;
       {
-        LinearLayout;
+        EditText;
         layout_weight=1;
-        orientation="vertical";
-        {
-          TextView;
-          text="网页链接";
-          textSize="14sp";
-          layout_marginTop="4dp";
-          layout_marginStart="4dp";
-          layout_marginEnd="4dp";
-          textColor=android.res.color.attr.colorAccent;
-        };
-        {
-          EditText;
-          layout_width="fill";
-          layout_height="wrap";
-          id="inputEdit";
-          hint="https://github.com/User/Repository/XXX";
-          inputType="text";
-          lines=1;
-          textSize="16sp";
-        };
+        layout_width="fill";
+        layout_height="wrap";
+        id="inputEdit";
+        hint="https://github.com/User/Repository/XXX";
+        inputType="text";
+        lines=1;
+        textSize="16sp";
+        layout_marginEnd=elementMargin;
       };
       {
         Button;
@@ -45,32 +42,47 @@
         minWidth="72dp";
         text="清空并粘贴";
         id="pasteButton";
-        layout_marginStart="4dp"
+        layout_marginStart=elementMargin or "4dp";
       };
     };
     {
       LinearLayout;
       layout_width="fill";
+      layout_marginStart="-8dp";
+      layout_marginEnd="-8dp";
       {
         HorizontalScrollView;
         layout_width="fill";
+        layout_height="fill";
         id="radioScrollView";
         layout_weight=1;
         {
           RadioGroup;
           layout_width="fill";
+          layout_height="fill";
           orientation="horizontal";
           id="radioGroup";
           minimumHeight="48dp";
+          paddingStart="8dp";
         };
+      };
+      {
+        View;
+        layout_height="32dp";
+        layout_width="1dp";
+        layout_gravity="center";
+        layout_margin="4dp";
+        background=android.res.drawable.attr.dividerVertical
       };
       {
         ImageButton;
         layout_height="48dp";
         layout_width="48dp";
+        padding="10dp";
+        layout_marginEnd="8dp";
         imageResource=R.drawable.ic_menu;
         id="moreCategoriesButton";
-        style="?android:attr/buttonStyle";
+        background=android.res.drawable.attr.listChoiceBackgroundIndicator;
         colorFilter=android.res.color.attr.textColorPrimary;
       };
     };
@@ -79,18 +91,21 @@
       layout_width="fill";
       text="开始转换";
       id="startButton";
+      layout_margin=elementMargin;
     };
     {
       Button;
       layout_width="fill";
       text="转换并打开";
       id="startAndOpenButton";
+      layout_margin=elementMargin;
     };
     {
       Button;
       layout_width="fill";
       text="转换并分享";
       id="startAndShareButton";
+      layout_margin=elementMargin;
     };
     {
       TextView;
@@ -98,11 +113,13 @@
       layout_width="fill";
       layout_height="wrap";
       id="messageView";
+      layout_margin=elementMargin;
       textColor=android.res.color.attr.textColorPrimary
     };
     {
       Button;
       text="支持此作者";
+      layout_margin=elementMargin;
       style="?android:attr/buttonBarButtonStyle";
       id="supportButton";
       layout_gravity="end";

@@ -9,6 +9,7 @@ import "android.webkit.WebView"
 import "com.onegravity.rteditor.RTEditorMovementMethod"
 import "android.text.util.Linkify"
 import "res"
+import "themeutil"
 import "helper.DialogHelper"
 import "util.UrlConverter"
 import "init"
@@ -36,9 +37,15 @@ KEY_TERM_PRIVACY="term.privacy"
 VERSION_TERM_USER="v1.2"
 VERSION_TERM_PRIVACY="v1.2"
 
-if not activity.getActionBar() then
-  activity.setTheme(android.R.style.Theme_Material_Settings)
+activity.setTheme(android.R.style.Theme)
+local enableEMUITheme=false
+if not enableEMUITheme then
+  themeutil.isEmuiSystem=false
+  androidhwext=nil
 end
+themeutil.applyTheme()
+
+elementMargin=themeutil.isEmuiSystem and "4dp" or nil
 
 activity.setContentView(loadlayout("layout"))
 actionBar=activity.getActionBar()
@@ -79,7 +86,7 @@ function onCreateOptionsMenu(menu)
   menu.add(0,4,0,"使用文档")
   menu.add(0,1,0,"关于")
   isMenuLoaded=true
-  refreshMenu()
+  refreshMenus()
 end
 
 function onOptionsItemSelected(item)
@@ -95,21 +102,25 @@ function onOptionsItemSelected(item)
    elseif id==4 then
     openInBrowser("https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md")
    elseif id==5 then
-    if nowConverterConfigs then
-      if item.isChecked() then
-        item.setChecked(false)
-        activity.setSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key),nil)
-       else
-        local dialog=AlertDialog.Builder(this)
-        .setTitle("直接转换")
-        .setMessage("勾选该平台的该转换器后，当您在外部分享链接到本 APP 内时，本 APP 会自动使用本转换器转换并使用浏览器打开此链接。")
-        .setPositiveButton(android.R.string.ok,function()
-          item.setChecked(true)
-          activity.setSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key),nowConverterConfigs.key)
-        end)
-        .setNegativeButton(android.R.string.no,nil)
-        .show()
-      end
+    switchDirectConvert()
+  end
+end
+
+function switchDirectConvert()
+  if nowConverterConfigs then
+    if directConvertMenu.isChecked() then
+      directConvertMenu.setChecked(false)
+      activity.setSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key),nil)
+     else
+      local dialog=AlertDialog.Builder(this)
+      .setTitle("直接转换")
+      .setMessage("勾选该平台的该转换器后，当您在外部分享链接到本 APP 内时，本 APP 会自动使用本转换器转换并使用浏览器打开此链接。")
+      .setPositiveButton(android.R.string.ok,function()
+        directConvertMenu.setChecked(true)
+        activity.setSharedData(KEY_DIRECT_CONVERT_MACHINE_FORMATTER:format(nowPlatform.key),nowConverterConfigs.key)
+      end)
+      .setNegativeButton(android.R.string.no,nil)
+      .show()
     end
   end
 end
@@ -118,7 +129,7 @@ function onNewIntent(newIntent)
   parseIntent(newIntent,true)
 end
 
-function refreshMenu()
+function refreshMenus()
   if not isMenuLoaded then
     return
   end
@@ -302,7 +313,7 @@ function changeCategoryRadio(key,smooth,focus)
   end
   --TODO: 使用 LuaDB 存储数据
   activity.setSharedData(KEY_SELECTED_FORMATTER:format(nowPlatform.key),key)
-  refreshMenu()
+  refreshMenus()
 end
 
 ---切换平台
