@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="websiteUrl">网页链接</string>
+    <string name="app_name">GitHub 链接转换</string>
+    <string name="covertUrl_github">转换 GitHub 链接</string>
+    <string name="clear_and_paste">清空并粘贴</string>
+    <string name="startConvert">开始转换</string>
+    <string name="convertAndOpen">转换并打开</string>
+    <string name="convertAndShare">转换并分享</string>
+    <string name="support_author">支持该作者</string>
+    <string name="gh_proxy_repository">gh-proxy 开源仓库</string>
+    <string name="settings_omit">设置...</string>
+    <string name="edit_platforms_config">编辑平台配置</string>
+    <string name="edit_converters_config">编辑转换器配置</string>
+    <string name="directConvert">直接转换</string>
+    <string name="documents">使用文档</string>
+    <string name="about">关于</string>
+    <string name="directConvert_message">勾选该平台的该转换器后，当您在外部分享链接到本 APP 内时，本 APP 会自动使用本转换器转换并使用浏览器打开此链接。</string>
+</resources>

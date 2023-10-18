@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GitHub 链接转换</string>
-    <string name="covertUrl_github">转换 GitHub 链接</string>
+    <string name="app_name">GitHub Url Converter</string>
+    <string name="covertUrl_github">Convert GitHub url</string>
+    <string name="websiteUrl">Website url</string>
+    <string name="clear_and_paste">Clear and paste</string>
+    <string name="url_github_hint" translatable="false">https://github.com/User/Repository/XXX</string>
+    <string name="startConvert">Start convert</string>
+    <string name="convertAndOpen">Convert and open</string>
+    <string name="convertAndShare">Convert and share</string>
+    <string name="support_author">Support the author</string>
+    <string name="gh_proxy_repository">gh-proxy repository</string>
+    <string name="settings_omit">Settings...</string>
+    <string name="edit_platforms_config">Edit platforms config</string>
+    <string name="edit_converters_config">Edit converters config</string>
+    <string name="directConvert">Direct convert</string>
+    <string name="documents">Documents</string>
+    <string name="about">About</string>
+    <string name="directConvert_message">After checking this converter for this platform, when you share a link externally to this APP, this APP will automatically use this converter to convert and open the link with your browser.</string>
 </resources>

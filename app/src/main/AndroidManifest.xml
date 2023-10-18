@@ -44,8 +44,19 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
-        <activity
+        <!-- <activity
             android:name="com.androlua.Welcome"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|navigation|screenLayout|fontScale|smallestScreenSize|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> -->
+
+        <activity
+            android:name=".MainActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|navigation|screenLayout|fontScale|smallestScreenSize|keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:windowSoftInputMode="adjustResize|stateHidden">
