@@ -1,6 +1,6 @@
 # GitHub 链接转换器
 
-<img src="./app/src/main/res/drawable/ic_launcher.png" alt="图标" width=192 height=192 />
+<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="图标" width=192 height=192 />
 
 转换 GitHub 链接，高速下载。
 
