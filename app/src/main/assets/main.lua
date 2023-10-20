@@ -141,7 +141,7 @@ end
 function showAboutDialog()
   local dialog=AlertDialog.Builder(this)
   .setTitle(R.string.app_name)
-  .setIcon(R.drawable.ic_launcher)
+  .setIcon(R.mipmap.ic_launcher)
   .setMessage("")
   .setPositiveButton(android.R.string.ok,nil)
   .setNeutralButton("法律信息...",nil)
