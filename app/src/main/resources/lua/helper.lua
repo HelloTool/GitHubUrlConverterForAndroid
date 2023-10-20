@@ -22,7 +22,9 @@ PATH_PLATFORM_CONFIGS_DEFAULT=PRJ_PATH.."/configs/defaultPlatforms.json"
 PATH_PLATFORM_CONFIGS=PATH_CONFIGS_DIR.."/platforms.json"
 FILE_PLATFORM_CONFIGS=File(PATH_PLATFORM_CONFIGS)
 
+--TODO: 重命名为 defaultConverters.json
 PATH_CONVERTER_CONFIGS_DEFAULT=PRJ_PATH.."/configs/defaultConverter.json"
+--TODO: 重命名为 converters.json
 PATH_CONVERTER_CONFIGS=PATH_CONFIGS_DIR.."/defaultConverter.json"
 FILE_CONVERTER_CONFIGS=File(PATH_CONVERTER_CONFIGS)
 
