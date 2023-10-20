@@ -3,8 +3,15 @@
     <string name="app_name">GitHub Url Converter</string>
     <string name="covertUrl_github">Convert GitHub url</string>
     <string name="websiteUrl">Website url</string>
-    <string name="clear_and_paste">Clear and paste</string>
+    <string name="clear_and_paste">Clear &amp; paste</string>
     <string name="url_github_hint" translatable="false">https://github.com/User/Repository/XXX</string>
+    <string name="url_gh_proxy_repository" translatable="false">https://github.com/hunshcn/gh-proxy/</string>
+    <string name="url_source" translatable="false">https://gitee.com/Jesse205/GitHubUrlConverter</string>
+    <string name="url_userAgreement" translatable="false">https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/user_v1.2.md</string>
+    <string name="url_privacyPolicy" translatable="false">https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/privacy_v1.2.md</string>
+    <string name="url_openSourceLicense" translatable="false">https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/license_v1.2.md</string>
+    <string name="url_informationSharing" translatable="false">https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/terms/sharing_v1.2.md</string>
+    <string name="url_documents" translatable="false">https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md</string>
     <string name="startConvert">Start convert</string>
     <string name="convertAndOpen">Convert and open</string>
     <string name="convertAndShare">Convert and share</string>
@@ -17,4 +24,14 @@
     <string name="documents">Documents</string>
     <string name="about">About</string>
     <string name="directConvert_message">After checking this converter for this platform, when you share a link externally to this APP, this APP will automatically use this converter to convert and open the link with your browser.</string>
+    <string name="about_message">App version: v%1$s
+\nUrlConverter version: v%1$s
+\nLicense: MIT
+\nOld app &amp; source: https://www.123pan.com/s/G7a9-4xtk
+\nE-mail: jesse205@qq.com</string>
+    <string name="userAgreement">User agreement</string>
+    <string name="privacyPolicy">Privacy policy</string>
+    <string name="openSourceLicense">Open source license</string>
+    <string name="thirdPartyInformationSharing">Third-party information sharing</string>
+    <string name="cannotFoundApp">Cannot found app</string>
 </resources>

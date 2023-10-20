@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_userAgreement"
+        android:title="@string/userAgreement" />
+    <item
+        android:id="@+id/menu_privacyPolicy"
+        android:title="@string/privacyPolicy" />
+    <item
+        android:id="@+id/menu_openSourceLicense"
+        android:title="@string/openSourceLicense" />
+    <item
+        android:id="@+id/menu_thirdPartyInformationSharing"
+        android:title="@string/thirdPartyInformationSharing" />
+</menu>

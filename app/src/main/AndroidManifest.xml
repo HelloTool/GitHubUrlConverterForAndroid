@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="io.gitee.jesse205.github.urlconverter">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.androlua.LuaApplication"
+        android:name=".App"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="true"
@@ -21,7 +20,7 @@
             android:name="android.max_aspect"
             android:value="4" />
 
-        <activity
+        <!-- <activity
             android:name="com.androlua.Main"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
@@ -42,10 +41,21 @@
             android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="false"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" /> -->
 
         <!-- <activity
             android:name="com.androlua.Welcome"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|navigation|screenLayout|fontScale|smallestScreenSize|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> -->
+
+        <!-- <activity
+            android:name=".ui.MainActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|navigation|screenLayout|fontScale|smallestScreenSize|keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -67,7 +77,7 @@
         </activity>
 
         <activity
-            android:name=".ConvertActivity"
+            android:name=".ui.ConvertActivity"
             android:exported="true"
             android:label="@string/covertUrl_github"
             android:theme="@style/AppTheme.Translucent"
@@ -92,6 +102,16 @@
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
 
     </application>
 

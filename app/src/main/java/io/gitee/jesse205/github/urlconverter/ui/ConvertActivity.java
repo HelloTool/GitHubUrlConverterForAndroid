@@ -1,11 +1,11 @@
-package io.gitee.jesse205.github.urlconverter;
+package io.gitee.jesse205.github.urlconverter.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
-import com.androlua.LuaActivity;
 import java.io.File;
 
-public class ConvertActivity extends LuaActivity {
-
+public class ConvertActivity extends Activity {
+/*
     public static final String TAG = "ConvertActivity";
 
     public String luaDir;
@@ -36,5 +36,5 @@ public class ConvertActivity extends LuaActivity {
 			parent = new File(parent).getParent();
 		}
 		setLuaDir(luaDir);
-	}
+	} */
 }
