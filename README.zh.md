@@ -4,6 +4,15 @@
 
 转换 GitHub 链接，高速下载。
 
+该项目使用 Lua 语言编写，也是哈兔 Box 万能转换器的一个示例。
+
+[![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
+[![发行版](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=发行版&logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter/releases)
+
+[![Gitee 仓库](https://img.shields.io/badge/Gitee-仓库-C71D23?logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter)
+[![Github 仓库](https://img.shields.io/badge/Github-仓库-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
+[![使用文档](https://img.shields.io/badge/使用文档-中文-C71D23)](https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md)
+
 ## 屏幕截图
 
 <img src="./images/screenshot1.webp" width=300 alt="主页" />
