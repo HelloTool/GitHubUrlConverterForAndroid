@@ -4,6 +4,10 @@
 
 Convert GitHub Links, High Speed Download.
 
+## Screenshot
+
+<img src="./images/screenshot1.webp" width=300 alt="Home" />
+
 ## Installation Tutorial
 
 1. Go to [Gitee Distribution](https://gitee.com/Jesse205/GitHubUrlConverter/releases/latest) and download the pre-compiled installer, the file name usually ends with `.apk`.

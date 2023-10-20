@@ -4,6 +4,10 @@
 
 转换 GitHub 链接，高速下载。
 
+## 屏幕截图
+
+<img src="./images/screenshot1.webp" width=300 alt="主页" />
+
 ## 安装教程
 
 1. 进入 [Gitee 发行版](https://gitee.com/Jesse205/GitHubUrlConverter/releases/latest)下载预编译的安装包，文件名通常以 `.apk` 结尾
