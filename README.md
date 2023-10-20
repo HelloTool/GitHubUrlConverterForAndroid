@@ -7,7 +7,7 @@ Convert GitHub Links, High Speed Download.
 This project is written in Lua language and is also an example of the universal converter for Hello Tool.
 
 [![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
-[![release](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=发行版&logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter/releases)
+[![release](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=release&logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter/releases)
 
 [![Gitee repository](https://img.shields.io/badge/Gitee-repository-C71D23?logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter)
 [![Github repository](https://img.shields.io/badge/Github-repository-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
