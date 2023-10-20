@@ -1,6 +1,6 @@
 # GitHub Link Converter
 
-<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="图标" width=192 height=192 />
+<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="Icon" width=192 height=192 />
 
 Convert GitHub Links, High Speed Download.
 
