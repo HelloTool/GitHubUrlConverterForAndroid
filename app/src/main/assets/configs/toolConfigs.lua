@@ -13,7 +13,7 @@ return {
       name="GitHub",
       key="github",
       categories={
-        {"kGitHub","kgithub"},
+        --{"kGitHub","kgithub"},
         {"jsDelivr","jsdelivr"},
         {"GitHub Proxy","ghproxy"},
         {"GitHub Proxy (mirrors.pw)","ghsb250gq"},
