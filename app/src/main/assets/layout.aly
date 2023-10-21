@@ -84,6 +84,7 @@
         id="moreCategoriesButton";
         background=android.res.drawable.attr.listChoiceBackgroundIndicator;
         colorFilter=android.res.color.attr.textColorPrimary;
+        contentDescription="转换器分类对话框"
       };
     };
     {
