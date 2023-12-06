@@ -1,17 +1,25 @@
-# GitHub 链接转换器
-
+<div align="center">
 <img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="图标" width=192 height=192 />
 
-转换 GitHub 链接，高速下载。
-
-该项目使用 Lua 语言编写，也是哈兔 Box 万能转换器（暂未推出）的一个示例。
-
-[![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
-[![发行版](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=发行版&logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter/releases)
+# GitHub 链接转换器
 
 [![Gitee 仓库](https://img.shields.io/badge/Gitee-仓库-C71D23?logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter)
 [![Github 仓库](https://img.shields.io/badge/Github-仓库-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
 [![使用文档](https://img.shields.io/badge/使用文档-中文-C71D23)](https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md)
+
+[![Android](https://img.shields.io/badge/Android-apk-%23DDC84?logo=android&logoColor=%23ffffff)][ReleaseInGitee]
+
+**中文** |
+[English](./README.md)
+
+</div>
+
+转换 GitHub 链接，高速下载。
+
+> 该项目使用 Lua 语言编写，同时也是哈兔 Box 万能转换器（暂未推出）的一个示例。
+
+[![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
+[![发行版](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=发行版&logo=gitee)][ReleaseInGitee]
 
 ## 屏幕截图
 
@@ -48,3 +56,5 @@
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
+
+[ReleaseInGitee]: https://gitee.com/AideLua/GitHubUrlConverter/releases/latest

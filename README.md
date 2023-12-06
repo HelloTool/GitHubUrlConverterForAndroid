@@ -1,17 +1,27 @@
-# GitHub Link Converter
+
+<div align="center">
 
 <img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="Icon" width=192 height=192 />
 
-Convert GitHub Links, High Speed Download.
-
-This project is written in Lua language and is also an example of the universal converter for Hello Tool (not yet available).
-
-[![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
-[![release](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=release&logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter/releases)
+# GitHub Link Converter
 
 [![Gitee repository](https://img.shields.io/badge/Gitee-repository-C71D23?logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter)
 [![Github repository](https://img.shields.io/badge/Github-repository-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
 [![documents](https://img.shields.io/badge/documents-Chinese-C71D23)](https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md)
+
+[![Android](https://img.shields.io/badge/Android-apk-%23DDC84?logo=android&logoColor=%23ffffff)][ReleaseInGitee]
+
+[中文](./README.zh.md) |
+**English**
+
+</div>
+
+Convert GitHub Links, High Speed Download.
+
+> This project is written in Lua language and is also an example of the universal converter for Hello Tool (not yet available).
+
+[![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
+[![release](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=release&logo=gitee)][ReleaseInGitee]
 
 ## Screenshot
 
@@ -48,3 +58,5 @@ For more information, please read the [Document](./docs/README.md) (Chinese).
 2. Create a new Feat_xxx branch.
 3. Commit code
 4. Create a new Pull Request
+
+[ReleaseInGitee]: https://gitee.com/AideLua/GitHubUrlConverter/releases/latest

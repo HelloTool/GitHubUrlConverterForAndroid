@@ -23,6 +23,8 @@
 
 ## 自定义平台
 
+![转换器平台配置与转换器配置关系](./images/platforms_and_converters.svg)
+
 软件内默认内置 GitHub 平台。如果您还需要转换其他平台的链接（如：GitLab），您可以添加自定义的平台。
 
 1. 下载文件编辑器，或者带有编辑功能的文件管理器。（如：[质感文件](https://github.com/zhanghai/MaterialFiles/releases/latest)、[MT 管理器](https://mt2.cn/)）。
