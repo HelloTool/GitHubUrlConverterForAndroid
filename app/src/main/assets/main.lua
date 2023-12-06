@@ -243,7 +243,7 @@ function parseIntent(intent,isNewIntent)
 end
 
 ---开始转换url
----@param callback func(newUrl:string) 回调
+---@param callback fun(newUrl:string) 回调
 function startConvertUrl(callback)
   inputEdit.setError(nil)
   local state,message=pcall(getConvertedUrl)
@@ -317,6 +317,7 @@ function changeCategoryRadio(key,smooth,focus)
 end
 
 ---切换平台
+---@param platformKey string
 function changePlatform(platformKey)
   --changeCategoryRadio(nil,false)
   local platformConfig=platformKey2ConfigMap[platformKey]
@@ -326,29 +327,35 @@ function changePlatform(platformKey)
   --添加转换器单选框
   local selectedConverterKey=activity.getSharedData(KEY_SELECTED_FORMATTER:format(platformKey))
   local isSelectedConverterAvailable=false
+  ---@type string|nil
   local firstAvailableConverterKey
 
   for index,category in ipairs(platformConfig.categories) do
     local name,converterKey=category[1],category[2]
-    local isAvailable=not not (converterKey and converterConfigs[converterKey])
+    ---@type ConverterConfig | nil
+    local converter=converterKey and converterConfigs[converterKey]
+    if converter and not(converter.hide) then
+      ---@type boolean
+      local isAvailable=not not converter
 
-    local radioButton=RadioButton(activity)
-    radioGroup.addView(radioButton)
-    radioButton.setText(name)
-    radioButton.setTag(converterKey)
-    radioButton.setOnClickListener(onRadioButtonClickListener)
-    radioButton.setEnabled(isAvailable)
-    local layoutParams=radioButton.getLayoutParams()
-    layoutParams.height=ViewGroup.LayoutParams.MATCH_PARENT
-    radioButton.setLayoutParams(layoutParams)
+      local radioButton=RadioButton(activity)
+      radioGroup.addView(radioButton)
+      radioButton.setText(name)
+      radioButton.setTag(converterKey)
+      radioButton.setOnClickListener(onRadioButtonClickListener)
+      radioButton.setEnabled(isAvailable)
+      local layoutParams=radioButton.getLayoutParams()
+      layoutParams.height=ViewGroup.LayoutParams.MATCH_PARENT
+      radioButton.setLayoutParams(layoutParams)
 
-    --优先选择受支持的转换器
-    if isAvailable then
-      if converterKey==selectedConverterKey then
-        isSelectedConverterAvailable=true
-      end
-      if not firstAvailableConverterKey then
-        firstAvailableConverterKey=converterKey
+      --优先选择受支持的转换器
+      if isAvailable then
+        if converterKey==selectedConverterKey then
+          isSelectedConverterAvailable=true
+        end
+        if not firstAvailableConverterKey then
+          firstAvailableConverterKey=converterKey
+        end
       end
     end
   end
@@ -473,7 +480,7 @@ end
 ---修复initConverterConfigs，自动完善converterConfigs数据
 ---@param converterConfigs table<string,ConverterConfig>
 function fixConverterConfigs(converterConfigs)
-  for key,converterConfig in pairs(converterConfigs)
+  for key,converterConfig in pairs(converterConfigs) do
     converterConfig.key=key
   end
 end
@@ -495,8 +502,15 @@ end
 if #platformConfigs>1 then
   actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS)
   local selectedPlatformKey=activity.getSharedData(KEY_PLATFORM_SELECTED_FORMAT:format(platformsGroupName))
-  for i=1,#platformConfigs do
+  local showCount=#platformConfigs
+  for i=1,showCount do 
+    if platformConfigs[i].hide then
+      showCount=showCount-1
+    end
+  end
+  for i=1,showCount do
     local platformConfig=platformConfigs[i]
+    if platformConfig.hide then return end
     local tab = actionBar.newTab()
     .setText(platformConfig.name)
     .setTabListener(ActionBar.TabListener({

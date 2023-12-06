@@ -6,13 +6,14 @@ import "android.net.Uri"
 
 ---@class ConverterConfig
 ---@field conversionType string 转换类型，目前拥有 "domain"、 "formatUrl" 和 "function"。"domain" 为替换域名，"formatUrl" 为格式化内容，"function"为执行函数。
----@field convertFunction func(ConverterConfig,string) 转换类型
+---@field convertFunction fun(ConverterConfig,string) 转换类型
 ---@field domain table<string,string>|string|nil 域名替换，键为被替换的域名 值为替后的域名。仅 conversionType 为"domain" 时生效。
 ---@field url string 要格式化的字符串，仅拥有一个 %s，且仅在 conversionType 为 "formatUrl" 生效。
 ---@field needEncodeUrl boolean 格式化 url 时是否需要进行 url 编码，且仅在 conversionType 为 "formatUrl" 生效。
 ---@field support ConverterSupportConfig 输入内容校验配置
 ---@field message string|nil 展示的信息，内容为 html 代码
 ---@field supportUrl string|nil 支持作者的 url
+---@field hide boolean|nil 是否在UI内隐藏，默认为false。这常用于示例配置。
 
 ---@class UrlConverter
 ---@field _VERSION string 版本名
@@ -24,7 +25,7 @@ UrlConverter._VERSION_CODE=1299
 
 ---转换链接
 ---@param originUrl string 原始url
----@param config ConverterSupportConfig 配置文件
+---@param config ConverterConfig 配置文件
 ---@return url string 转换后的链接
 function UrlConverter.convert(originUrl,config)
   local support=config.support

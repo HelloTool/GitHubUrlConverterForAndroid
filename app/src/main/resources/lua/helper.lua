@@ -90,34 +90,34 @@ end
 
 ---合并表
 ---@param target table 要合并到的表
----@param compareFunc func(any,any,string) 比较函数，比较两表是否相同。path是路径
+---@param compareFunc fun(targetValue: any, originValue: any, path: string):boolean 比较函数，比较两表是否相同。
 ---@param path string 深度，用于比较表
 ---@vararg table
 ---@return table
 function mergeTables(target,compareFunc,path,...)
   local original={...}
   for i=1,#original do
-    for key,value in pairs(original[i])
+    for key,value in pairs(original[i]) do
       local isKeyNumber=type(key)=="number"
       local isValueTable=type(value)=="table"
       local needInsert=isKeyNumber
       local replaceKey=key
+      ---@type any
       local newValue
       if isKeyNumber then--如果键是数字的话，说明当前目标是列表，所以就需要查找一下相同的值
         if compareFunc then
           for i=1,#target do
-            if target[i] and type(target[i])==type(value) then
-              if compareFunc(target[i],value,path) then
-                newValue=target[i]
-                needInsert=false
-                replaceKey=i
-                break
-              end
+            local isSameTable=target[i] and type(target[i])==type(value) and compareFunc(target[i],value,path)
+            if isSameTable then
+              newValue=target[i]
+              needInsert=false
+              replaceKey=i
+              break
             end
           end
         end
       end
-
+      
       if isValueTable then
         if isKeyNumber then--如果键是数字的话，说明当前目标是列表，所以就需要查找一下相同的表
           newValue=newValue or {}
@@ -140,13 +140,15 @@ function mergeTables(target,compareFunc,path,...)
   return target
 end
 
----匹配url
+---匹配出url
 ---@param text string 匹配url
+---@return string | nil 匹配出的链接
 function matchUrl(text)
   return text:match("(https?://[%w%p]+)")
 end
 
----获取已转换的链接
+---转换链接
+---@return string
 function convertUrl(text,converterConfigs)
   local originUrl=matchUrl(text)
   assert(originUrl,"未找到链接")
@@ -220,7 +222,7 @@ function loadPlatformCustomConfigs(platformConfigs)
       end,platformConfigs,function(oldValue,newValue,path)
       if path=="root" then
         return oldValue.key==newValue.key
-       elseif path:match("^root/%d/categories$")
+       elseif path:match("^root/%d/categories$") then
         return oldValue[2]==newValue[2]
        elseif path:match("^root/%d/categories/%d$") then
         return oldValue==newValue
