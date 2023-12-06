@@ -2,20 +2,24 @@
 
 ## 转换链接
 
-软件内内置了 GitHub 平台，您可以直接使用 GitHub 链接转换的功能。
+软件内仅内置了 GitHub 平台，您可以直接使用 GitHub 链接转换的功能。
 
-1. 选择 GitHub 平台。（因为软件内默认只有 GitHub 平台，所以不会显示标签栏，也就默认选中的是该平台。）
+1. 选择 GitHub 平台。（因为软件内只有 GitHub 平台，所以不会显示标签栏，但是默认选中的是该平台。）
 2. 将 GitHub 文件链接（比如发行版）填入输入框内。
    - 可以复制 GitHub 链接，然后粘贴进输入框。
    - 也可以直接从 GitHub APP 分享链接到此应用。搭配 F-Droid 应用商店使用效果更佳。
    - 需要注意的是，高版本安卓拥有 url 校验，目前可能无法在高版本安卓使用打开浏览器的方式打开此软件。
-3. 选择您喜欢的一个转换器，推荐 `kGitHub`与`GitHub Proxy` 。
+3. 选择您喜欢的一个转换器。
 4. 加工链接（转换链接）。
    - 点击“开始转换”，然后您可以复制链接到浏览器，或者分享给朋友。
    - 或者点击“转换并打开”，使用浏览器打开链接。
    - 或者点击“转换并分享”，将链接分享给好友。
 
+> **TIP**\
 > 输入框内文字会自动匹配出链接，因此无须担心链接外拥有杂质的问题。
+
+> **Note**\
+> 部分转换器可能会失效，您可能需要随时检查更新，或者更新转换器清单。
 
 ## 自定义平台
 
@@ -173,20 +177,28 @@
 您可以仿照上面的格式添加更多转换器。
 
 > **Note**\
-> 不支持 json5
+> 暂不支持 json5
 
 ### 转换器配置 (`ConverterConfig`)
 
-- `conversionType` (`string`): 转换类型，目前拥有 `"domain"`、 `"formatUrl"` 和 `"function"`。`"domain"` 为替换域名，`"formatUrl"` 为格式化内容，`"function"` 为执行函数。
-- `convertFunction` (`func(ConverterConfig,string)`): 转换类型
-- `domain` `(table<string,string> | string | nil`): 域名替换，键为被替换的域名 值为替后的域名。仅 conversionType 为"domain" 时生效。
-- `url` (`string`): 要格式化的字符串，仅拥有一个 %s，且仅在 conversionType 为 "formatUrl" 生效。
-- `needEncodeUrl` (`boolean`): 格式化 url 时是否需要进行 url 编码，且仅在 conversionType 为 "formatUrl" 生效。
-- `support` (`ConverterSupportConfig`): 输入内容[校验配置](#校验配置-convertersupportconfig)
-- `message` (`string | nil`): 展示的信息，内容为 html 代码
-- `supportUrl` (`string | nil`): 支持作者的 url
+转换器配置不同版本的配置可能会有所不同，下面的文档以最新版本为准。
+
+当前版本：1.2
+
+- `conversionType`: `string`: 转换类型，目前拥有 `"domain"`、 `"formatUrl"` 和 `"function"`。`"domain"` 为替换域名，`"formatUrl"` 为格式化内容，`"function"` 为执行函数。
+- `convertFunction`: `func(self: ConverterConfig, url: string)`: 转换函数。json 中暂时无法使用。
+- `domain`: `table<string, string> | string | nil`: 域名替换，键为被替换的域名 值为替后的域名。仅 `conversionType` 为 `"domain"` 时生效。
+- `url`: `string`: 要格式化的字符串，有且仅拥有一个 `%s`。仅在 `conversionType` 为 `"formatUrl"` 生效。
+- `needEncodeUrl`: `boolean`: 格式化 url 时是否需要进行 url 编码。仅在 `conversionType` 为 `"formatUrl"` 生效。
+- `support`: `ConverterSupportConfig`: 输入内容[校验配置](#校验配置-convertersupportconfig)
+- `message`: `string | nil`: 展示的信息，内容为 html 代码
+- `supportUrl`: `string | nil`: 支持作者的链接
 
 ### 校验配置 (`ConverterSupportConfig`)
 
-- `domains` (`string[] | nil`): 域名列表，仅用户输入的域名在列表内则通过。
-- `check` (`string[] | nil`): 正则列表，仅用户符合其中一项则通过。
+校验配置不同版本的配置可能会有所不同，下面的文档以最新版本为准。
+
+当前版本：1.2
+
+- `domains`: `string[] | nil`: 域名列表，仅用户输入的域名在列表内则通过。
+- `check`: `string[] | nil`: 正则列表，仅用户符合其中一项则通过。

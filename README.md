@@ -4,7 +4,7 @@
 
 Convert GitHub Links, High Speed Download.
 
-This project is written in Lua language and is also an example of the universal converter for Hello Tool.
+This project is written in Lua language and is also an example of the universal converter for Hello Tool (not yet available).
 
 [![license](https://img.shields.io/github/license/AideLua/GitHubUrlConverter)](LICENSE)
 [![release](https://img.shields.io/github/v/tag/AideLua/GitHubUrlConverter?color=C71D23&label=release&logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter/releases)
@@ -15,7 +15,9 @@ This project is written in Lua language and is also an example of the universal 
 
 ## Screenshot
 
-<img src="./images/screenshot1.webp" width=300 alt="Home" />
+<img src="./images/screenshots/Screenshot_20231206-234135.png" width=30% alt="Home" />
+<img src="./images/screenshots/Screenshot_20231206-234155.png" width=30% alt="About" />
+<img src="./images/screenshots/Screenshot_20231206-234352.png" width=30% alt="Share" />
 
 ## Installation Tutorial
 

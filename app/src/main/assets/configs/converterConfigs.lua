@@ -3,7 +3,7 @@
 ---            值：转换器配置
 ---详情见 UrlConverter
 
----@type table<string,ConverterConfig>
+---@type table<string, ConverterConfig>
 return {
   kgithub={
     conversionType="domain",
