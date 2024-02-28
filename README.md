@@ -6,7 +6,7 @@
 # GitHub Link Converter
 
 [![Gitee repository](https://img.shields.io/badge/Gitee-repository-C71D23?logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter)
-[![Github repository](https://img.shields.io/badge/Github-repository-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
+[![GitHub repository](https://img.shields.io/badge/GitHub-repository-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
 [![documents](https://img.shields.io/badge/documents-Chinese-C71D23)](https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md)
 
 [![Android](https://img.shields.io/badge/Android-apk-%23DDC84?logo=android&logoColor=%23ffffff)][ReleaseInGitee]
@@ -47,7 +47,8 @@ Convert GitHub Links, High Speed Download.
     - Or click "Convert and Open" to open the link with your browser.
     - Or click "Convert and Share" to share the link with your friends.
 
-> **Note**\
+> [!TIP]
+>
 > The text in the input box will automatically match the link, so you don't need to worry about impurities outside the link.
 
 For more information, please read the [Document](./docs/README.md) (Chinese).

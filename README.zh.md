@@ -4,7 +4,7 @@
 # GitHub 链接转换器
 
 [![Gitee 仓库](https://img.shields.io/badge/Gitee-仓库-C71D23?logo=gitee)](https://gitee.com/AideLua/GitHubUrlConverter)
-[![Github 仓库](https://img.shields.io/badge/Github-仓库-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
+[![GitHub 仓库](https://img.shields.io/badge/GitHub-仓库-0969DA?logo=github)](https://github.com/AideLua/GitHubUrlConverter)
 [![使用文档](https://img.shields.io/badge/使用文档-中文-C71D23)](https://gitee.com/Jesse205/GitHubUrlConverter/blob/master/docs/README.md)
 
 [![Android](https://img.shields.io/badge/Android-apk-%23DDC84?logo=android&logoColor=%23ffffff)][ReleaseInGitee]
@@ -45,8 +45,9 @@
     - 或者点击“转换并打开”，使用浏览器打开链接。
     - 或者点击“转换并分享”，将链接分享给好友。
 
-> **Note**\
-> 输入框内文字会自动匹配出链接，因此无须担心链接外拥有杂质的问题。
+> [!TIP]
+>
+> 输入框内文字会自动匹配出链接，因此无须担心链接周围有其他字符的问题。
 
 更多内容请阅读[《使用文档》](./docs/README.md)
 
